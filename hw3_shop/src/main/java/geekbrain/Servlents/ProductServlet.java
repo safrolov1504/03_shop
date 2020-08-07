@@ -14,7 +14,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Optional;
 
-@WebServlet(name = "ProductControllerServlet", urlPatterns = {"/product/*"})
+@WebServlet(name = "ProductControllerServlet", urlPatterns = {"/products/*"})
 public class ProductServlet extends HttpServlet {
 
     private static final Logger logger = LoggerFactory.getLogger(ProductServlet.class);
@@ -47,7 +47,7 @@ public class ProductServlet extends HttpServlet {
             logger.info("Add a new");
             req.setAttribute("product", new Product());
             getServletContext().getRequestDispatcher("/WEB-INF/product.jsp").forward(req, resp);
-        } else if (req.getPathInfo().equals("/edit")) {
+        } else if (req.getPathInfo().equals("/edit") || req.getPathInfo().equals("/product")) {
             String id = req.getParameter("id");
             try {
                 Optional<Product> opt = productRepository.findById(Long.parseLong(id));
@@ -60,8 +60,24 @@ public class ProductServlet extends HttpServlet {
             } catch (SQLException ex) {
                 throw new IllegalStateException(ex);
             }
-            getServletContext().getRequestDispatcher("/WEB-INF/product.jsp").forward(req, resp);
-        } else {
+            if(req.getPathInfo().equals("/edit")){
+                getServletContext().getRequestDispatcher("/WEB-INF/product.jsp").forward(req, resp);
+            } else if(req.getPathInfo().equals("/product")){
+                getServletContext().getRequestDispatcher("/WEB-INF/show_product.jsp").forward(req, resp);
+            }
+
+        } else if (req.getPathInfo().equals("/delete")){
+            String id = req.getParameter("id");
+            try {
+                productRepository.delete(Long.parseLong(id));
+                getServletContext().getRequestDispatcher("/products").forward(req, resp);
+            } catch (SQLException e) {
+                throw new IllegalStateException(e);
+            }
+
+        }
+        else
+            {
             resp.sendError(HttpServletResponse.SC_NOT_FOUND);
         }
     }
@@ -84,7 +100,7 @@ public class ProductServlet extends HttpServlet {
                             req.getParameter("description"),
                             null));
                 }
-                resp.sendRedirect(getServletContext().getContextPath());
+                getServletContext().getRequestDispatcher("/WEB-INF/products.jsp").forward(req,resp);
             } catch (SQLException ex) {
                 throw new IllegalStateException(ex);
             }

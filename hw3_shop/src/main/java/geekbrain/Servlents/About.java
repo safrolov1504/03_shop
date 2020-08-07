@@ -7,15 +7,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(name = "order", urlPatterns = "/order/*")
-public class Order extends HttpServlet {
+@WebServlet(name = "about", urlPatterns = "/about/*")
+public class About extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.setAttribute("ContextPath", ("<p>ContextPath = " + req.getContextPath()+"</p>"));
+
+        req.setAttribute("ContextPath", ("ContextPath = " + req.getContextPath()));
         req.setAttribute("PathInfo", ("PathInfo = " + req.getPathInfo()));
         req.setAttribute("Parameters", ("Parameters = " + req.getQueryString()));
 
-        getServletContext().getRequestDispatcher("/WEB-INF/order.jsp").forward(req, resp);
+        getServletContext().getRequestDispatcher("/WEB-INF/about.jsp").forward(req, resp);
     }
 }
