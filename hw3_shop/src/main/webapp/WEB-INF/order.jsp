@@ -11,39 +11,17 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"/>
-    <title>New product</title>
+    <title>Shopping application</title>
 </head>
 
 <body>
 
 
-
 <div class="container">
     <%@include file="nav.jsp"%>
-    <div class="row py-2">
-        <div class="col-12">
-            <c:url value="/products/upsert" var="productPostUrl"/>
-            <form action="${productPostUrl}" method="post">
-                <input type="hidden" id="id" name="id" value="${product.id}">
-                <div class="form-group">
-                    <label>Name</label>
-                    <input type="text" class="form-control" id="name" name="name" placeholder="Enter name"
-                           value="${product.name}">
-                </div>
-                <div class="form-group">
-                    <label>Description</label>
-                    <input type="text" class="form-control" id="description" name="description" placeholder="Enter description"
-                           value="${product.description}">
-                </div>
-                <div class="form-group">
-                    <label>Price</label>
-                    <input type="number" class="form-control" id="price" name="price" placeholder="Enter price"
-                           value="${product.price}">
-                </div>
-                <button type="submit" class="btn btn-primary">Submit</button>
-            </form>
-        </div>
-    </div>
+    <div><c:out value="${ContextPath}"/></div>
+    <div><c:out value="${ServletPath}"/></div>
+    <div><c:out value="${Parameters}"/></div>
 </div>
 
 <!-- Optional JavaScript -->
@@ -57,5 +35,5 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
         crossorigin="anonymous"></script>
-
 </body>
+</html>
